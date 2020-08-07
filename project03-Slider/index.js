@@ -11,58 +11,65 @@ let next = document.querySelector('.next')
 
 let index = 0;
 
-function activeDot(index) {                                //функция для активной dot
-    if (index == 0) {
-        dots[index].classList.add('active')
-        dots[1].classList.remove('active')
-        dots[2].classList.remove('active')
-    } else if (index == 1) {
-        dots[index].classList.add('active')
-        dots[0].classList.remove('active')
-        dots[2].classList.remove('active')
-    } else if (index == 2) {
-        dots[index].classList.add('active')
-        dots[1].classList.remove('active')
-        dots[0].classList.remove('active')
-    } 
-};
+const entities = [
+    {
+        city: 'Rostov-on-Don LCD admiral',
+        area: '81 m2',
+        time: '3.5 months'
+    },
+    {
+        city: 'Sochi Thieves',
+        area: '105 m2',
+        time: '4 months'
+    },
+    {
+        city: 'Rostov-on-Don Patriotic',
+        area: '93 m2',
+        time: '3 months'
+    }
+]
 
-//activeDot(2);
-
-function activeNavigation(index) {                                //функция для активной навигации
-    if (index == 0) {
-        navigations[index].classList.add('active')
-        navigations[1].classList.remove('active')
-        navigations[2].classList.remove('active')
-    } else if (index == 1) {
-        navigations[index].classList.add('active')
-        navigations[0].classList.remove('active')
-        navigations[2].classList.remove('active')
-    } else if (index == 2) {
-        navigations[index].classList.add('active')
-        navigations[1].classList.remove('active')
-        navigations[0].classList.remove('active')
-    }  
-};
-
-//activeNavigation(0);
+const city = document.querySelector('.citytext')
+const area = document.querySelector('.areatext')
+const time = document.querySelector('.timetext')
 
 
-function activeSlide(index) {                                   //функция для активного слайда
-    if (index == 0) {
-        slides[index].classList.add('active')
-        slides[1].classList.remove('active')
-        slides[2].classList.remove('active')
-    } else if (index == 1) {
-        slides[index].classList.add('active')
-        slides[0].classList.remove('active')
-        slides[2].classList.remove('active')
-    } else if (index == 2) {
-        slides[index].classList.add('active')
-        slides[1].classList.remove('active')
-        slides[0].classList.remove('active')
-    } 
-};
+const setEntity = (index) => {
+    city.innerHTML = entities[index].city
+    area.innerHTML = entities[index].area
+    time.innerHTML = entities[index].time
+}
+
+function activeDot(index) {
+    dots.forEach((item) => {
+        item.classList.remove('active')
+    });
+    dots[index].classList.add('active');
+}
+
+
+//activeDot(1);
+
+function activeNavigation(index) {
+    navigations.forEach((item) => {
+        item.classList.remove('active')
+    });
+    navigations[index].classList.add('active');
+}
+
+
+
+
+//activeNavigation(1);
+
+function activeSlide(index) {
+    slides.forEach((item) => {
+        item.classList.remove('active')
+    });
+    slides[index].classList.add('active');
+}
+
+
 
 //activeSlide(0);
 
@@ -70,10 +77,11 @@ function activeSlide(index) {                                   //функция
 function activeItem(index) {
     activeNavigation(index),                //объединила все функции в одну
     activeSlide(index),
-    activeDot(index)
+    activeDot(index),
+    setEntity(index)
 };
 
-//activeItem(2);
+//activeItem(1);
 
 
 
@@ -92,24 +100,24 @@ navigations.forEach((item, indexNavigation) => {        //вешаю обраб�
 });
 
 
+let currentIndex = 0
 next.addEventListener('click', () => {              //обработчик на стрелку next
-    if (index == 2) {
-        index = 0
-        activeItem(index);
+    if (currentIndex === entities.length - 1) {
+        currentIndex = 0;
+        activeItem(currentIndex);
     } else {
-        index++;
-        activeItem(index);
+        currentIndex++;
+        activeItem(currentIndex);
     }
 });
 
-
 prev.addEventListener('click', () => {               //обработчик на стрелку prev
-    if (index == 0) {
-        index = 2;
-        activeItem(index);
-    } else {  
-        index--;
-        activeItem(index);
+    if (currentIndex === 0) {
+        currentIndex = entities.length - 1;
+        activeItem(currentIndex);
+    } else {
+        currentIndex--;
+        activeItem(currentIndex);
     }
 });
 
