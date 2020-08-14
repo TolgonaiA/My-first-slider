@@ -100,24 +100,29 @@ navigations.forEach((item, indexNavigation) => {        //вешаю обраб�
 });
 
 
-let currentIndex = 0
-next.addEventListener('click', () => {              //обработчик на стрелку next
-    if (currentIndex === entities.length - 1) {
-        currentIndex = 0;
-        activeItem(currentIndex);
+//let currentIndex = 0
+next.addEventListener('click', () => {                               //обработчик на стрелку next
+    if (index === entities.length - 1) {
+        index = 0;
+        //activeItem(index);
+        //console.log(index);
     } else {
-        currentIndex++;
-        activeItem(currentIndex);
+        index++;
+        //activeItem(index);
+        //console.log(index);
     }
+    activeItem(index);
 });
 
+
+
 prev.addEventListener('click', () => {               //обработчик на стрелку prev
-    if (currentIndex === 0) {
-        currentIndex = entities.length - 1;
-        activeItem(currentIndex);
+    if (index === 0) {
+        index = entities.length - 1;
+        activeItem(index);
     } else {
-        currentIndex--;
-        activeItem(currentIndex);
+        index--;
+        activeItem(index);
     }
 });
 
